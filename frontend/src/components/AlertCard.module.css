@@ -1,0 +1,62 @@
+.card {
+  border-radius: var(--radius);
+  padding: 0.875rem 1.125rem;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+
+.card.warning {
+  background: var(--warning-bg);
+  border-color: var(--warning);
+  border-top: 1px solid var(--warning-border);
+  border-right: 1px solid var(--warning-border);
+  border-bottom: 1px solid var(--warning-border);
+}
+
+.card.critical {
+  background: var(--critical-bg);
+  border-color: var(--critical);
+  border-top: 1px solid var(--critical-border);
+  border-right: 1px solid var(--critical-border);
+  border-bottom: 1px solid var(--critical-border);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.warning .badge {
+  background: var(--warning);
+  color: #fff;
+}
+
+.critical .badge {
+  background: var(--critical);
+  color: #fff;
+}
+
+.code {
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.warning .code { color: var(--warning); }
+.critical .code { color: var(--critical); }
+
+.message {
+  font-size: 0.875rem;
+  color: var(--text);
+}

@@ -1,0 +1,89 @@
+.panel {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.communityType {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.confidence {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.narrative {
+  font-size: 0.975rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.evidence {
+  border-top: 1px solid var(--border);
+  padding-top: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.evidenceLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.evidenceList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.evidenceItem {
+  display: grid;
+  grid-template-columns: 14rem 5rem 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-size: 0.845rem;
+}
+
+.evidenceMetric {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.evidenceValue {
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.evidenceInterpretation {
+  color: var(--text-muted);
+}
