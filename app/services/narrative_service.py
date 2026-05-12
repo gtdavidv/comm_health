@@ -81,7 +81,7 @@ VOLUME:
 ENGAGEMENT:
   avg_comments_per_post: {metrics.avg_comments_per_post}
   median_response_time: {rt}
-  engagement_concentration_pct: {metrics.engagement_concentration_pct}%
+  engagement_concentration_pct: {metrics.engagement_concentration_pct}% (% of all comments written by the top 5 commenters; low = broadly distributed, high = few voices dominate)
   unanswered_post_rate_pct: {metrics.unanswered_post_rate_pct}%
 
 TOP CONTRIBUTORS:

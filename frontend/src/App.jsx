@@ -27,7 +27,16 @@ export default function App() {
     try {
       const params = new URLSearchParams({ subreddit, from: fromDate, to: toDate })
       const res = await fetch(`/api/insights/community-health?${params}`)
-      const json = await res.json()
+      let json
+      try {
+        json = await res.json()
+      } catch {
+        throw new Error(
+          res.status === 504 || res.status === 502
+            ? 'The request timed out. Reddit data collection can take a while for large date ranges — please try a shorter range or try again.'
+            : `Server returned a non-JSON response (HTTP ${res.status})`
+        )
+      }
       if (!res.ok) throw new Error(json.detail ?? `HTTP ${res.status}`)
       setInsightsData(json)
       setInsightsStatus(STATUS.SUCCESS)
@@ -53,7 +62,16 @@ export default function App() {
           to: lastSearch.toDate,
         }),
       })
-      const json = await res.json()
+      let json
+      try {
+        json = await res.json()
+      } catch {
+        throw new Error(
+          res.status === 504 || res.status === 502
+            ? 'The request timed out while generating the narrative — please try again.'
+            : `Server returned a non-JSON response (HTTP ${res.status})`
+        )
+      }
       if (!res.ok) throw new Error(json.detail ?? `HTTP ${res.status}`)
       setNarrativeData(json)
       setNarrativeStatus(STATUS.SUCCESS)

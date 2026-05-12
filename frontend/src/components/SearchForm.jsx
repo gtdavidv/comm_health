@@ -33,7 +33,7 @@ export default function SearchForm({ onSearch, loading }) {
             type="text"
             value={subreddit}
             onChange={e => setSubreddit(e.target.value)}
-            placeholder="LocalLLaMA"
+            placeholder="pickleball"
             required
             disabled={loading}
           />
@@ -71,7 +71,7 @@ export default function SearchForm({ onSearch, loading }) {
       </button>
 
       <p className={styles.hint}>
-        First fetch is slow: a single day on a large subreddit takes ~30–90s. Cached after that.
+        Requests for large subreddits may time out. Subreddits with ~5k active members take ~30 seconds per analyzed day.
       </p>
     </form>
   )

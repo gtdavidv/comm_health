@@ -11,7 +11,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 FROM base AS deps
 
 COPY pyproject.toml .
-RUN pip install --upgrade pip && pip install .
+RUN pip install --upgrade pip && pip install ".[dev]"
 
 # ---- final ----
 FROM deps AS final
