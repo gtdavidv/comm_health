@@ -12,7 +12,7 @@ class NarrativeRequest(BaseModel):
 
     @model_validator(mode="after")
     def validate_range(self) -> "NarrativeRequest":
-        if self.from_date >= self.to_date:
+        if self.from_date > self.to_date:
             raise ValueError("'from' must be before 'to'")
         delta = (self.to_date - self.from_date).days
         if delta > 90:

@@ -1,8 +1,10 @@
+import asyncio
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
 import httpx
 import structlog
+from json import JSONDecodeError
 
 log = structlog.get_logger(__name__)
 
@@ -63,14 +65,22 @@ class RedditClient:
 
     async def _get(self, path: str, params: dict) -> dict | list:
         params["raw_json"] = 1
-        response = await self.client.get(f"{BASE_URL}{path}", params=params)
+        try:
+            response = await self.client.get(f"{BASE_URL}{path}", params=params)
+        except httpx.RequestError as exc:
+            raise RedditAPIError(0, f"Network error contacting Reddit: {exc}") from exc
         if response.status_code == 404:
-            raise RedditAPIError(404, f"Subreddit not found: {path}")
+            raise RedditAPIError(404, "Subreddit not found")
+        if response.status_code == 403:
+            raise RedditAPIError(403, "Subreddit is private or restricted")
         if response.status_code == 429:
             raise RedditAPIError(429, "Rate limited by Reddit API")
         if response.status_code >= 400:
-            raise RedditAPIError(response.status_code, response.text[:200])
-        return response.json()
+            raise RedditAPIError(response.status_code, f"Reddit returned {response.status_code}")
+        try:
+            return response.json()
+        except JSONDecodeError as exc:
+            raise RedditAPIError(0, "Reddit returned an unexpected response") from exc
 
     async def fetch_posts(
         self,

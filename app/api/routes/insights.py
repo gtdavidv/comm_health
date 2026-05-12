@@ -27,7 +27,7 @@ async def community_health(
     to_date: date = Query(alias="to", description="End date (ISO 8601, e.g. 2026-04-30)"),
     db: AsyncSession = Depends(get_db),
 ) -> CommunityHealthResponse:
-    if from_date >= to_date:
+    if from_date > to_date:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="'from' must be before 'to'")
     if (to_date - from_date).days > 90:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Date range cannot exceed 90 days")
@@ -42,8 +42,8 @@ async def community_health(
         await ingestion.ensure_data(subreddit, from_dt, to_dt)
     except RedditAPIError as exc:
         if exc.status_code == 404:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Subreddit '{subreddit}' not found") from exc
-        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=str(exc)) from exc
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Subreddit r/{subreddit} not found") from exc
+        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=exc.args[0]) from exc
 
     posts = await PostRepository(db).get_in_range(subreddit, from_dt, to_dt)
     comments = await CommentRepository(db).get_for_posts(subreddit, [p.reddit_id for p in posts])

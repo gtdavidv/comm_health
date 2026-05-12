@@ -20,8 +20,8 @@ class FetchRepository:
         result = await self._session.execute(
             select(FetchRecord).where(
                 FetchRecord.subreddit == subreddit.lower(),
-                FetchRecord.fetched_from <= from_dt,
-                FetchRecord.fetched_to >= to_dt,
+                FetchRecord.fetched_from == from_dt,
+                FetchRecord.fetched_to == to_dt,
             )
         )
         return result.scalar_one_or_none() is not None
