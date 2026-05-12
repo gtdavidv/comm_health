@@ -195,6 +195,14 @@ Tests cover:
 
 No database or network connection is required by the test suite.
 
+### Eval suite
+
+```bash
+docker compose run --rm commhealth-api pytest evals/ -v
+```
+
+Evals make real calls to the LLM and assert deterministic properties of its output — structure, numeric grounding, and confidence thresholds. Requires `OPENAI_API_KEY` to be set in `.env`.
+
 ---
 
 ## Project Structure
