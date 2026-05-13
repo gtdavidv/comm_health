@@ -168,6 +168,9 @@ class RedditClient:
             if child.get("kind") != "t1":
                 continue
             d = child["data"]
+            raw_ts = d.get("created_utc")
+            if raw_ts is None:
+                continue
             acc.append(
                 RedditComment(
                     reddit_id=d["id"],
@@ -176,7 +179,7 @@ class RedditClient:
                     author=d.get("author") or "[deleted]",
                     body=d.get("body", ""),
                     score=d.get("score", 0),
-                    created_utc=datetime.fromtimestamp(d["created_utc"], tz=timezone.utc),
+                    created_utc=datetime.fromtimestamp(raw_ts, tz=timezone.utc),
                 )
             )
             replies = d.get("replies")

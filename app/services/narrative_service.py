@@ -24,7 +24,14 @@ Your task:
 1. Classify the community into a type (a short label, e.g. "niche expert community").
 2. Write an insightful narrative (3-5 sentences) that explains what that classification means \
 for this specific community — its character, how engagement works, and what the data suggests \
-about its strengths or fragility.
+about its strengths or fragility. For every alert listed in the ALERTS section you MUST include \
+a specific root-cause hypothesis explaining *why* that anomaly is occurring — do not merely \
+restate the alert. Ground each hypothesis in the community type and the surrounding metrics \
+(e.g. high concentration in a niche expert community often reflects a small trusted core; \
+rising response times may indicate moderator fatigue or a surge of low-engagement posts from \
+new members; a high unanswered rate may signal topic drift, a shrinking active base, or \
+mismatch between post quality and available expertise). If there are no alerts, focus the \
+narrative on explaining the dominant pattern in the data.
 3. Assign a confidence score (0.0–1.0) reflecting data richness:
    - ≥0.90 → 200+ posts and 1000+ comments
    - 0.70–0.89 → 50–199 posts

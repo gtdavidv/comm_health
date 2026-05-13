@@ -1,5 +1,25 @@
 # Technical Decisions
 
+---
+
+## Why these metrics
+
+Healthy communities share a recognisable shape: broad participation, questions that get answered, and no single clique dominating the conversation. Each metric is chosen to make one dimension of that shape visible and quantifiable.
+
+**`unique_contributors`** — Counts distinct post and comment authors (excluding `[deleted]`). A subreddit can generate 500 posts in a week and still be driven by 10 people. Without this, high activity is indistinguishable from broad participation. The interesting signal: a sharp drop here while post volume holds steady often means a community is consolidating around a core group.
+
+**`engagement_concentration_pct`** — Percentage of all comments written by the top 5 users. Even a community with 1,000 contributors can be fragile if 3 of them write 60% of the comments — when those people leave, the community hollows out fast. This surfaces dependency risk that contributor counts alone hide. It's also a proxy for power dynamics: high concentration in a help subreddit usually means a few experts doing all the work.
+
+**`unanswered_post_rate_pct`** — Percentage of posts with zero captured comments. This is the rejection signal. A post that goes unanswered is someone who showed up and was ignored. High rates correlate with churn — people post once, get nothing back, and don't return. It's a leading indicator of health problems that won't show up in volume metrics for weeks.
+
+**`median_response_time_minutes`** — Time from post creation to first captured comment. Median rather than mean, because a handful of viral posts skew the mean badly. The most interesting use of this metric is the trend alert: if the median doubles in the second half of a period, the community is becoming less responsive even if post volume holds steady. That divergence — flat posts, rising response time — often signals moderator fatigue or audience drift.
+
+**`avg_comments_per_post`** — Total comments divided by total posts. A subreddit where the average post gets 0.3 comments is a broadcast channel; one where the average gets 40 is a debate club. Same post volume, completely different community character. This sits between the other metrics as a quick readout of whether people are consuming content or participating in it.
+
+---
+
+## Technical decisions
+
 Choices we made and what we traded away by making them.
 
 ---
