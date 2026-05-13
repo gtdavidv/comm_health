@@ -10,7 +10,7 @@ See [README.md](README.md) for the full setup walkthrough.
 
 CommHealth is three Docker containers: a FastAPI backend, a PostgreSQL database, and a React frontend served by nginx. The nginx container also reverse-proxies `/api/` to the backend, so the frontend never talks to the API directly.
 
-The backend is async throughout — FastAPI with asyncpg, httpx for Reddit calls, and AsyncOpenAI for the LLM — which keeps the event loop free during the slow Reddit pagination. Fetched posts and comments are persisted to Postgres and cached by exact (subreddit, from, to) range, so repeat queries are sub-second. Comments are fetched per-post rather than from the subreddit listing endpoint, which only returns the ~1000 most recent comments site-wide and misses most of a multi-day window on busy subreddits. The LLM narrative endpoint passes only pre-aggregated metrics to the model — no raw post titles or comment text — which constrains hallucination and keeps the prompt small.
+The backend is async throughout — FastAPI with asyncpg, httpx for Reddit calls, and AsyncOpenAI for the LLM — which keeps the event loop free during the slow Reddit pagination. Fetched posts and comments are persisted to Postgres and cached by exact (subreddit, from, to) range, so repeat queries are sub-second. Comments are fetched per-post rather than from the subreddit listing endpoint, which only returns the ~1000 most recent comments site-wide and misses most of a multi-day window on busy subreddits. The LLM narrative endpoint passes only pre-aggregated metrics to the model — no raw post titles or comment text — which constrains hallucination and keeps the prompt small. See [DECISIONS.md](DECISIONS.md) for a full breakdown of the trade-offs.
 
 ---
 
